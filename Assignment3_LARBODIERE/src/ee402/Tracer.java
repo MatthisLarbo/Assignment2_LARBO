@@ -4,9 +4,11 @@ package ee402;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import java.awt.geom.AffineTransform;
 
 public class Tracer extends JPanel //For the use of the method paint (drawing the curve and the graph)
 {
+	//Overriding
 	private Map<String, Curve> myothersclients;
 	private ClientConstru myClient;
 	
@@ -24,23 +26,36 @@ public class Tracer extends JPanel //For the use of the method paint (drawing th
 	
 	public void paint(Graphics graph)
 	{
-		//ESSAYER 
-		//JFrame frame = new JFrame("EE402 Representation of several clients");
-		//frame.setSize(650, 500);
+		
 		super.paint(graph);
-		//graph.setColor(Color.white); A EFFACER SI CA MARCHE
-		//graph.setTitle("EE402 Representation of several clients");
-		graph.drawString("EE402 Representation of the temperature on several clients", 2, 2);
+		graph.setFont(new Font("default", Font.BOLD, 14)); //Write the title in bold
+		graph.drawString("EE402 Representation of the temperature on several clients", 6, 12);
 		
 		//Draw the graph
 		graph.setColor(Color.darkGray); //Set the color of the lines
-		graph.drawLine(12, 38, 12, 420); //Abcissa
-		graph.drawLine(12, 420, 640, 420); //Ordinate
+		graph.drawLine(20, 38, 20, 432); //Abcissa
+		graph.drawLine(8, 420, 640, 420); //Ordinate
+		
+		//Drawing crosses
+		graph.setColor(Color.darkGray);
+		graph.drawLine(16, 42, 20, 38);
+		graph.drawLine(24, 42, 20, 38);
+		graph.drawLine(636, 416, 640, 420);
+		graph.drawLine(636, 424, 640, 420);
+		
+		//Writing Strings on the graph
+		graph.setFont(new Font("default", Font.PLAIN, 12)); //Restablish the original writing
+		AffineTransform vertically = new AffineTransform();
+		vertically.setToRotation(Math.toRadians(90), 80, 100);
+		//graph.setTransform(vertically); Don't work with Graphics but with Graphics2D yes
+		graph.drawString("Temperature (°C)", 10, 30);
+		graph.drawString("0", 10, 432);
+		graph.drawString("Time (sec)", 630, 435);
 		
 		Set<String> testIn = this.myothersclients.keySet();
 		Iterator<String> it = testIn.iterator();
-		int ab = 0;
 		
+		int ab = 0;
 		while(it.hasNext())
 		{
 			ab=ab+1;
@@ -64,7 +79,7 @@ public class Tracer extends JPanel //For the use of the method paint (drawing th
 					int ord1 = (int)firstP.getOrd();
 					int ord2 = (int)secondP.getOrd();
 					
-					//Connect with a line the different points
+					//Connect the different points with a line
 					
 					//ESSAYER DE CHANGER CA (valeurs -4)
 					

@@ -13,10 +13,11 @@ public class Client {
     
 	// the constructor expects the IP address of the server - the port is fixed
     //Constructor of the Client class
-    public Client(String serverIP) {
+    public Client(String serverIP, String infoClient) {
     	if (!connectToServer(serverIP)) {
     		System.out.println("XX. Failed to open socket connection to: " + serverIP);            
     	}
+    	this.infoClient=infoClient;
     }
 
     private boolean connectToServer(String serverIP) {
@@ -102,8 +103,8 @@ public class Client {
     public static void main(String args[]) 
     {
     	System.out.println("**. Java Client Application - EE402 OOP Module, DCU");
-    	if(args.length==1){
-    		Client theApp = new Client(args[0]);
+    	if(args.length==2){
+    		Client theApp = new Client(args[0], args[1]);
 		    theApp.getDate();
 		}
     	else
